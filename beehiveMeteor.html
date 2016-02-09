@@ -1,0 +1,69 @@
+<head>
+    <title>Beehive Data</title>
+</head>
+
+<body>
+<div class="container">
+    <br>
+    <h1>Beehive Form</h1>
+    <hr>
+    {{> form}}
+    <br>
+    {{> dataTable}}
+</div>
+</body>
+
+
+<template name="form">
+    <div class="row">
+        <div class="col-xs-4">
+            <form>
+                <fieldset class="form-group">
+                    <label for="hiveID">Hive ID:</label>
+                    <input type="text" name="hiveID" class="form-control input-lg" required/>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label for="collectionDate">Collection Date:</label>
+                    <input type="date" name="collectionDate" class="form-control input-lg" required/>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label for="samplePeriod">Sample Period:</label>
+                    <input type="number" name="samplePeriod" class="form-control input-lg" required/>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <label for="miteCount">Mite Count:</label>
+                    <input type="number" name="miteCount" class="form-control input-lg" required/>
+                </fieldset>
+
+                <button type="submit" class="btn btn-lg btn-primary">Submit Data</button>
+            </form>
+        </div>
+    </div>
+</template>
+
+<template name="dataTable">
+    <div class="row">
+        <h2>Beehive information:</h2>
+			<table class="table table-bordered">
+			<thead>
+				<th>Beehive ID </th> 
+				<th>Collection Date</th> 
+				<th>Sample Period </th>
+				<th> ites Count</th> 
+				<th>Created On </th> 
+			</thead>
+			{{#each hiveData}}
+            <tr> 
+				<td>{{hiveID}}</td> 
+				<td>{{collectionDate}} </td>
+				<td>{{samplePeriod}} </td>
+				<td>{{miteCount}} </td> 
+				<td>{{createdOn}}</td>
+			</tr>
+			{{/each}}
+		</table>
+    </div>
+</template>
