@@ -1,5 +1,34 @@
 HiveDB = new Mongo.Collection("hiveData");
 
+Router.route('/', function(){
+	this.render('form'); 
+	this.layout('layout'); 	
+});
+
+Router.route('/admin', function(){
+	this.render('dataTable'); 
+	this.layout('layout'); 	
+});
+
+Router.route('/hive/:hiveID', function(){
+	this.render('hiveByName', {
+		data: function(){
+			return HiveDB.findOne({hiveID: this.params.hiveID});
+		}
+	});
+	this.layout('layout');	    
+
+	},
+	{
+		name: 'hive.show'
+	}
+);
+Router.route('/about', function(){
+	this.render('about'); 
+	this.layout('layout'); 	
+});
+
+
 if (Meteor.isClient) {
 
     Meteor.subscribe("hiveData");
@@ -7,6 +36,12 @@ if (Meteor.isClient) {
     Template.dataTable.helpers({
             "hiveData": function () {
                 return HiveDB.find({}, {sort: {createdOn: -1}}) || {};
+            }
+        }
+    );
+	Template.hiveByName.helpers({
+            "hiveData": function () {
+                return HiveDB.find({hiveID: this.hiveID}, {sort: {createdOn: -1}}) || {};
             }
         }
     );

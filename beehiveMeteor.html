@@ -1,17 +1,18 @@
 <head>
-    <title>Beehive Data</title>
+		<title>Beehive Data</title>
 </head>
 
-<body>
-<div class="container">
-    <br>
-    <h1>Beehive Form</h1>
-    <hr>
-    {{> form}}
-    <br>
-    {{> dataTable}}
-</div>
-</body>
+<template name="layout">
+	<body>
+	<div class="container">
+		<br>
+		<h1>Beehive Form</h1>
+		<hr>
+		{{> yield}})
+		
+	</div>
+	</body>
+</template>
 
 
 <template name="form">
@@ -66,4 +67,32 @@
 			{{/each}}
 		</table>
     </div>
+</template>
+
+<template name="hiveByName">
+<div class="row">
+        <h2>Beehive information:</h2>
+			<table class="table table-bordered">
+			<thead>
+				<th>Beehive ID </th> 
+				<th>Collection Date</th> 
+				<th>Sample Period </th>
+				<th> ites Count</th> 
+				<th>Created On </th> 
+			</thead>
+			{{#each hiveData}}
+            <tr> 
+				<td>{{hiveID}}</td> 
+				<td>{{collectionDate}} </td>
+				<td>{{samplePeriod}} </td>
+				<td>{{miteCount}} </td> 
+				<td>{{createdOn}}</td>
+			</tr>
+			{{/each}}
+		</table>
+    </div>
+</template>
+
+<template name = "about">
+	<p>This is an  app created for IT328 in Meteor</p>
 </template>
