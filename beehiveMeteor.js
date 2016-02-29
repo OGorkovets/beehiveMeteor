@@ -28,6 +28,45 @@ Router.route('/about', function(){
 	this.layout('layout'); 	
 });
 
+Router.route('/export', function () {
+     var data = HiveDB.find().fetch();
+     var fields = [
+         {
+             key: 'hiveID',
+             title: 'hiveID'
+         },
+         {
+             key: 'collectionDate',
+             title: 'collectionDate'
+         },
+         {
+             key: 'samplePeriod',
+             title: 'samplePeriod'
+         },
+         {
+             key: 'miteCount',
+             title: 'miteCount'
+         },
+         {
+             key: 'createdOn',
+             title: 'createdOn'
+         }
+     ];
+ 
+     //generating a date for a unique file name
+     var d = new Date();
+     var title = 'BeehiveData ' + d.toDateString();
+ 
+     //downloading the file
+     var file = Excel.export(title, fields, data);
+     var headers = {
+         'Content-type': 'application/vnd.openxmlformats',
+         'Content-Disposition': 'attachment; filename=' + title + '.xlsx'
+     };
+ 
+     this.response.writeHead(200, headers);
+     this.response.end(file, 'binary');
+ }, {where: 'server'});
 
 if (Meteor.isClient) {
 
